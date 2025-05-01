@@ -19,7 +19,7 @@ async def test_auth_flow(async_client, test_admin):
 
 
 @pytest.mark.asyncio
-async def test_webhook(async_client, test_user, test_account):
+async def test_webhook(async_client, test_user, test_account, mock_logger):
     test_data = {
         "transaction_id": "5eae174f-7cd0-472c-bd36-35660f00132b",
         "user_id": test_user.id,

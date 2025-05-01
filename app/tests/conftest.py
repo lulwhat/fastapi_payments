@@ -1,5 +1,6 @@
 import os
 from typing import AsyncGenerator
+from unittest.mock import AsyncMock
 
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
@@ -126,3 +127,10 @@ async def admin_token(async_client,
         headers={"Content-Type": "application/x-www-form-urlencoded"}
     )
     return response.json()["access_token"]
+
+
+@pytest_asyncio.fixture
+def mock_logger(monkeypatch):
+    mock = AsyncMock()
+    monkeypatch.setattr("app.main.logger", mock)
+    return mock

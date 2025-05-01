@@ -11,7 +11,8 @@ async def test_process_payment_webhook(
         async_client,
         db_session,
         test_user,
-        test_account
+        test_account,
+        mock_logger
 ):
     # Create webhook payload
     transaction_id = "test-transaction-webhook-123"
@@ -65,7 +66,8 @@ async def test_process_payment_webhook(
 async def test_process_payment_webhook_invalid_signature(
         async_client,
         test_user,
-        test_account
+        test_account,
+        mock_logger
 ):
     # Create webhook payload with invalid signature
     payload = {
@@ -90,7 +92,8 @@ async def test_process_payment_webhook_duplicate_transaction(
         async_client,
         db_session,
         test_user,
-        test_account
+        test_account,
+        mock_logger
 ):
     # Create webhook payload
     transaction_id = "test-transaction-duplicate"
@@ -133,7 +136,8 @@ async def test_process_payment_webhook_duplicate_transaction(
 @pytest.mark.asyncio
 async def test_process_payment_webhook_nonexistent_user(
         async_client,
-        test_account
+        test_account,
+        mock_logger
 ):
     # Create webhook payload with non-existent user
     transaction_id = "test-transaction-no-user"
@@ -167,7 +171,8 @@ async def test_process_payment_webhook_nonexistent_user(
 async def test_process_payment_webhook_create_account(
         async_client,
         db_session,
-        test_user
+        test_user,
+        mock_logger
 ):
     # Create webhook payload with new account ID
     transaction_id = "test-transaction-new-account"
