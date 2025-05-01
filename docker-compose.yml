@@ -1,0 +1,31 @@
+services:
+  app:
+    build:
+      context: .
+      target: app_payments
+    container_name: app_payments
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./app:/home/app/web/app
+
+  db:
+    image: postgres:17
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+      - POSTGRES_DB=${SQL_DATABASE}
+    volumes:
+      - postgres_data:/var/lib/postgresql@17/data
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
